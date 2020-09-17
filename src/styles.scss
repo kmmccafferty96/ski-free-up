@@ -21,6 +21,8 @@
   @include custom-components-theme($flb-theme);
 }
 
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 html,
 body {
   height: 100%;

@@ -1,40 +1,28 @@
 <div class="app-wrapper default-theme">
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="over">
-      Sidenav content
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar class="mat-elevation-z4" color="primary">
-        <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
-          <fa-icon icon="bars"></fa-icon>
-        </button>
-        <span routerLink="" class="logo">
-          <img [src]="logo" alt="Fat Little Buddies Logo" />
-        </span>
-        <span class="d-none d-md-inline">
-          <button
-            mat-button
-            class="nav-button"
-            *ngFor="let item of navigation"
-            [routerLink]="[item.link]"
-            routerLinkActive="active"
-          >
-            {{ item.label }}
-          </button>
-        </span>
-        <button mat-stroked-button class="nav-button" color="accent">
-          Order Now
-        </button>
-        <button mat-icon-button routerLink="" class="d-none d-sm-inline">
-          <fa-icon [icon]="['fab', 'facebook']"></fa-icon>
-        </button>
-        <button mat-icon-button routerLink="" class="d-none d-sm-inline">
-          <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
-        </button>
-      </mat-toolbar>
-      <div class="content-wrapper">
-        <router-outlet></router-outlet>
+  <div class="background">
+    <div class="gradient">
+      <div class="container">
+        <img class="row justify-content-center billboard" src="../assets/billboard.jpg" />
+        <h1>Welcome to Ski Free UP</h1>
       </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </div>
+  </div>
+  <div class="container">
+    <p style="text-align: center">
+      We are promoting select ski resorts in Michigan’s Upper Peninsula by providing free and discounted lift tickets to
+      families and individuals throughout the Midwest. Skiing is a fun winter activity which brings family and friends
+      together while participating in a healthy sport the entire family can enjoy. Leading physicians encourage you to
+      get outdoors during COVID-19 and few winter activities provide such a safe and healthy activity while naturally
+      encouraging social distancing.
+    </p>
+    <p style="font-weight: bold">
+      Please fill out our short survey below and we will provide you with free or discounted lift tickets to select
+      Upper Peninsula ski resorts this winter.
+    </p>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <app-ski-form></app-ski-form>
+      </div>
+    </div>
+  </div>
 </div>

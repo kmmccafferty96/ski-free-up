@@ -1,71 +1,50 @@
-$flb-red: (
-  50: #f3e0e0,
-  100: #e0b3b3,
-  200: #cc8080,
-  300: #b84d4d,
-  400: #a82626,
-  500: #990000,
-  600: #910000,
-  700: #860000,
-  800: #7c0000,
-  900: #6b0000,
-  A100: #ff9a9a,
-  A200: #ff6767,
-  A400: #ff3434,
-  A700: #ff1a1a,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #ffffff,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #ffffff,
-    A700: #ffffff
-  )
+$mat-primary: (
+  main: #0e1e2f,
+  lighter: #b7bcc1,
+  darker: #08121d,
+  200: #0e1e2f,
+  // For slide toggle,
+  contrast:
+    (
+      main: $light-primary-text,
+      lighter: $dark-primary-text,
+      darker: $light-primary-text
+    )
 );
+$theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
-$flb-yellow: (
-  50: #fefbe1,
-  100: #fef4b3,
-  200: #fded81,
-  300: #fce64f,
-  400: #fbe029,
-  500: #fadb03,
-  600: #f9d703,
-  700: #f9d202,
-  800: #f8cd02,
-  900: #f6c401,
-  A100: #ffffff,
-  A200: #fffaea,
-  A400: #ffeeb7,
-  A700: #ffe89d,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #000000,
-    500: #000000,
-    600: #000000,
-    700: #000000,
-    800: #000000,
-    900: #000000,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000
-  )
+$mat-accent: (
+  main: #9c2d19,
+  lighter: #e1c0ba,
+  darker: #801c0e,
+  200: #9c2d19,
+  // For slide toggle,
+  contrast:
+    (
+      main: $light-primary-text,
+      lighter: $dark-primary-text,
+      darker: $light-primary-text
+    )
 );
+$theme-accent: mat-palette($mat-accent, main, lighter, darker);
 
-$flb-primary: mat-palette($flb-red, 800, 300, 900);
-$flb-accent: mat-palette($flb-yellow, 500);
+$mat-warn: (
+  main: #ff0000,
+  lighter: #ffb3b3,
+  darker: #ff0000,
+  200: #ff0000,
+  // For slide toggle,
+  contrast:
+    (
+      main: $light-primary-text,
+      lighter: $dark-primary-text,
+      darker: $light-primary-text
+    )
+);
+$theme-warn: mat-palette($mat-warn, main, lighter, darker);
+
+$flb-primary: mat-palette($mat-indigo, 800, 300, 900);
+$flb-accent: mat-palette($mat-light-blue);
 $flb-warn: mat-palette($mat-pink, 600);
 
-$flb-theme: mat-light-theme($flb-primary, $flb-accent, $flb-warn);
+$flb-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
