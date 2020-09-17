@@ -27,7 +27,7 @@
       <!-- Please check all ski areas you have skied in UP. -->
       <mat-step>
         <ng-template matStepLabel>Question 3</ng-template>
-        <label>Please check all ski areas you have skied in UP.</label>
+        <label>Please check all ski areas you have skied in UP. If you have not skied any, just click next.</label>
         <div class="mat-checkbox-group">
           <mat-checkbox name="skied-marquette-mountain">Marquette Mountain</mat-checkbox>
           <mat-checkbox name="skied-pine-mountain">Pine Mountain Ski & Golf Resort</mat-checkbox>
@@ -130,8 +130,8 @@
             <input matInput type="text" maxlength="5" name="zip" />
           </mat-form-field>
         </div>
-        <mat-checkbox name="specials-promotions"
-          >I would like to receive additional specials and promotions.</mat-checkbox
+        <mat-slide-toggle name="specials-promotions"
+          >I would like to receive additional specials and promotions.</mat-slide-toggle
         >
       </mat-step>
     </mat-vertical-stepper>
