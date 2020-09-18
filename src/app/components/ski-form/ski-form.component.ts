@@ -1,26 +1,31 @@
-import { Component } from '@angular/core';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ski-form',
   templateUrl: './ski-form.component.html',
-  styleUrls: ['./ski-form.component.scss']
+  styleUrls: ['./ski-form.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true }
+    }
+  ]
 })
-export class SkiFormComponent {
+export class SkiFormComponent implements OnInit {
   states = [
     'Alabama',
     'Alaska',
-    'American Samoa',
     'Arizona',
     'Arkansas',
     'California',
     'Colorado',
     'Connecticut',
     'Delaware',
-    'District of Columbia',
     'Florida',
     'Georgia',
-    'Guam',
     'Hawaii',
     'Idaho',
     'Illinois',
@@ -34,7 +39,6 @@ export class SkiFormComponent {
     'Massachusetts',
     'Michigan',
     'Minnesota',
-    'Minor Outlying Islands',
     'Mississippi',
     'Missouri',
     'Montana',
@@ -46,7 +50,6 @@ export class SkiFormComponent {
     'New York',
     'North Carolina',
     'North Dakota',
-    'Northern Mariana Islands',
     'Ohio',
     'Oklahoma',
     'Oregon',
@@ -57,23 +60,57 @@ export class SkiFormComponent {
     'South Dakota',
     'Tennessee',
     'Texas',
-    'U.S. Virgin Islands',
     'Utah',
     'Vermont',
     'Virginia',
     'Washington',
+    'Washington D.C.',
     'West Virginia',
     'Wisconsin',
     'Wyoming'
   ];
 
-  constructor(public dialog: MatDialog) {}
+  form: FormGroup;
 
-  openDialog(): void {
+  constructor(private dialog: MatDialog, private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      skiedBefore: [undefined, [Validators.required]],
+      lastTimeSkiing: [undefined, [Validators.required]],
+      placesSkied: this.formBuilder.group({
+        marquetteMountain: false,
+        pineMountain: false,
+        skiBrule: false,
+        bigPowderHorn: false
+      }),
+      numberOfPeople: [undefined, [Validators.required]],
+      leaveDayOrNight: [undefined, [Validators.required]],
+      canSkiWeekday: [undefined, [Validators.required]],
+      contactInformation: this.formBuilder.group({
+        firstName: [undefined, [Validators.required]],
+        lastName: [undefined, [Validators.required]],
+        email: [undefined, [Validators.required, Validators.email]],
+        address1: [undefined, [Validators.required]],
+        address2: undefined,
+        city: [undefined, [Validators.required]],
+        state: [undefined, [Validators.required]],
+        zip: [undefined, [Validators.required, Validators.pattern(/^[0-9]{5}(?:-[0-9]{4})?$/)]]
+      }),
+      additionalSpecials: false
+    });
+  }
+
+  /** Opens the success dialog */
+  openSuccessDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: '600px',
       disableClose: true
     });
+  }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
 }
 
@@ -89,6 +126,4 @@ export class SkiFormComponent {
     </p>
     <p>Thank you and we look forward to seeing you on the slopes this winter.</p>`
 })
-export class ConfirmationDialogComponent {
-  constructor() {}
-}
+export class ConfirmationDialogComponent {}
