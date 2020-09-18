@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
+import { FirebaseService } from '../../core/services/firebase.service';
+
 @Component({
   selector: 'app-ski-form',
   templateUrl: './ski-form.component.html',
@@ -72,9 +74,14 @@ export class SkiFormComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private dialog: MatDialog, private formBuilder: FormBuilder) {}
+  constructor(private dialog: MatDialog, private formBuilder: FormBuilder, private firebaseService: FirebaseService) {}
 
   ngOnInit(): void {
+    this.firebaseService.getSurveySubmissions();
+    this.initializeForm();
+  }
+
+  private initializeForm(): void {
     this.form = this.formBuilder.group({
       skiedBefore: [undefined, [Validators.required]],
       lastTimeSkiing: [undefined, [Validators.required]],
@@ -102,15 +109,17 @@ export class SkiFormComponent implements OnInit {
   }
 
   /** Opens the success dialog */
-  openSuccessDialog(): void {
+  private openSuccessDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: '600px',
       disableClose: true
     });
   }
 
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  /** Submits the survey response. */
+  submitForm(): void {
+    this.firebaseService.addSurveySubmission(this.form.value);
+    this.openSuccessDialog();
   }
 }
 

@@ -2,10 +2,6 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-
-  > * {
-    width: 600px;
-  }
 }
 
 mat-radio-group,
@@ -22,22 +18,14 @@ mat-radio-group,
 
 ::ng-deep .mat-radio-label-content,
 ::ng-deep .mat-checkbox-label {
-  white-space: normal;
-}
-
-.full-width {
-  display: flex;
-
-  > * {
-    flex: 1;
-  }
-
-  .spacer {
-    flex: 0;
-  }
+  white-space: normal !important;
 }
 
 .submit-container {
   display: flex;
   justify-content: flex-end;
+}
+
+.submit-btn {
+  transition: color 0.75s, background-color 0.75s;
 }
