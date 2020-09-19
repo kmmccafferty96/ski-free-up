@@ -104,7 +104,8 @@ export class SkiFormComponent implements OnInit {
         state: [undefined, [Validators.required]],
         zip: [undefined, [Validators.required, Validators.pattern(/^[0-9]{5}(?:-[0-9]{4})?$/)]]
       }),
-      additionalSpecials: false
+      additionalSpecials: false,
+      recaptcha: [undefined, [Validators.required]]
     });
   }
 

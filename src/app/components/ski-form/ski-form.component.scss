@@ -21,6 +21,12 @@ mat-radio-group,
   white-space: normal !important;
 }
 
+.recaptcha-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .submit-container {
   display: flex;
   justify-content: flex-end;
