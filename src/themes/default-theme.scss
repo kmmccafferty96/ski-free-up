@@ -43,8 +43,8 @@ $mat-warn: (
 );
 $theme-warn: mat-palette($mat-warn, main, lighter, darker);
 
-$flb-primary: mat-palette($mat-indigo, 800, 300, 900);
-$flb-accent: mat-palette($mat-light-blue);
-$flb-warn: mat-palette($mat-pink, 600);
+$sfu-primary: mat-palette($mat-indigo, 800, 300, 900);
+$sfu-accent: mat-palette($mat-light-blue);
+$sfu-warn: mat-palette($mat-pink, 600);
 
-$flb-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+$sfu-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);

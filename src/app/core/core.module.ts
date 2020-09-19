@@ -15,9 +15,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 import { environment } from '../../environments/environment';
 
@@ -40,12 +37,7 @@ import { environment } from '../../environments/environment';
     MatCardModule,
     MatStepperModule,
     MatDialogModule,
-    MatSlideToggleModule,
-    FontAwesomeModule
+    MatSlideToggleModule
   ]
 })
-export class CoreModule {
-  constructor(private iconLibrary: FaIconLibrary) {
-    iconLibrary.addIcons(faBars, faFacebook, faInstagram, faTwitter);
-  }
-}
+export class CoreModule {}

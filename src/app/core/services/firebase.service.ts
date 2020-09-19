@@ -12,7 +12,7 @@ export class FirebaseService {
     return this.surveySubmissionsRef;
   }
 
-  addSurveySubmission(formValue: any): void {
-    this.surveySubmissionsRef.push(formValue);
+  addSurveySubmission(formValue: any): firebase.database.ThenableReference {
+    return this.surveySubmissionsRef.push(formValue);
   }
 }

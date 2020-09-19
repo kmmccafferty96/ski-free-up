@@ -13,12 +13,12 @@
 @import './app/app.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
-  @include flb-app-component-theme($theme);
+  @include sfu-app-component-theme($theme);
 }
 
 .default-theme {
-  @include angular-material-theme($flb-theme);
-  @include custom-components-theme($flb-theme);
+  @include angular-material-theme($sfu-theme);
+  @include custom-components-theme($sfu-theme);
 }
 
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
