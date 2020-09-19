@@ -36,7 +36,6 @@ export class SkiFormComponent implements OnInit {
 
   /** Adds the form value to the places skied form array when one is checked. */
   onCheckboxChange(e: any): void {
-    console.log(e);
     if (e.checked) {
       this.placesSkiedFormArray.push(new FormControl(e.source.value));
     } else {
