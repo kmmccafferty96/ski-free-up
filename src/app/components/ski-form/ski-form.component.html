@@ -34,16 +34,13 @@
         <label id="label_placesSkied"
           >Please check all ski areas you have skied in UP. If you have not skied any, just click next.</label
         >
-        <div formGroupName="placesSkied" class="mat-checkbox-group">
-          <mat-checkbox formControlName="marquetteMountain" aria-labelledby="label_placesSkied"
-            >Marquette Mountain</mat-checkbox
-          >
-          <mat-checkbox formControlName="pineMountain" aria-labelledby="label_placesSkied"
-            >Pine Mountain Ski & Golf Resort</mat-checkbox
-          >
-          <mat-checkbox formControlName="skiBrule" aria-labelledby="label_placesSkied">Ski Brule</mat-checkbox>
-          <mat-checkbox formControlName="bigPowderHorn" aria-labelledby="label_placesSkied"
-            >Big Powder Horn</mat-checkbox
+        <div class="mat-checkbox-group">
+          <mat-checkbox
+            *ngFor="let place of placesSkiedArr; let i = index"
+            [value]="place"
+            (change)="onCheckboxChange($event)"
+            aria-labelledby="label_placesSkied"
+            >{{ place }}</mat-checkbox
           >
         </div>
         <div>

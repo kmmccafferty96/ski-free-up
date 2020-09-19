@@ -1,6 +1,6 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { FirebaseService } from '../../core/services/firebase.service';
@@ -18,15 +18,37 @@ import { states } from './states';
   ]
 })
 export class SkiFormComponent implements OnInit {
-  loading = false;
   form: FormGroup;
+  loading = false;
+  placesSkiedArr = [];
   states = states;
+
+  get placesSkiedFormArray(): FormArray {
+    return this.form.controls.placesSkied as FormArray;
+  }
 
   constructor(private dialog: MatDialog, private formBuilder: FormBuilder, private firebaseService: FirebaseService) {}
 
   ngOnInit(): void {
     this.firebaseService.getSurveySubmissions();
     this.initializeForm();
+  }
+
+  /** Adds the form value to the places skied form array when one is checked. */
+  onCheckboxChange(e: any): void {
+    console.log(e);
+    if (e.checked) {
+      this.placesSkiedFormArray.push(new FormControl(e.source.value));
+    } else {
+      let i = 0;
+      this.placesSkiedFormArray.controls.forEach((item: FormControl) => {
+        if (item.value === e.source.value) {
+          this.placesSkiedFormArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
   }
 
   /** Submits the survey response. */
@@ -45,12 +67,7 @@ export class SkiFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       skiedBefore: [undefined, [Validators.required]],
       lastTimeSkiing: [undefined, [Validators.required]],
-      placesSkied: this.formBuilder.group({
-        marquetteMountain: false,
-        pineMountain: false,
-        skiBrule: false,
-        bigPowderHorn: false
-      }),
+      placesSkied: this.formBuilder.array([]),
       numberOfPeople: [undefined, [Validators.required]],
       leaveDayOrNight: [undefined, [Validators.required]],
       canSkiWeekday: [undefined, [Validators.required]],
@@ -65,8 +82,27 @@ export class SkiFormComponent implements OnInit {
         zip: [undefined, [Validators.required, Validators.pattern(/^[0-9]{5}(?:-[0-9]{4})?$/)]]
       }),
       additionalSpecials: false,
-      recaptcha: [undefined, [Validators.required]]
+      recaptcha: [undefined, [Validators.required]],
+      uniqueId: this.generateRandomId(12)
     });
+
+    this.getRandomPlacesSkied(4);
+  }
+
+  private getRandomPlacesSkied(numPlacesToSelect: number): void {
+    const allPossiblePlacesArr = [
+      'Big Snow Resort',
+      'Mont Ripley',
+      'Big Powderhorn',
+      'Mount Bohemia',
+      'Marquette Mountain',
+      'Pine Mountain',
+      'Ski Brule',
+      'Mount Zion',
+      'Porcupine Mountains'
+    ];
+
+    this.placesSkiedArr = this.selectRandomArrayValues(allPossiblePlacesArr, numPlacesToSelect);
   }
 
   /** Opens the dialog */
@@ -77,6 +113,19 @@ export class SkiFormComponent implements OnInit {
       disableClose: true,
       data: { success }
     });
+  }
+
+  private selectRandomArrayValues(array: any[], n: number): any[] {
+    return array.sort(() => Math.random() - Math.random()).slice(0, n);
+  }
+
+  private generateRandomId(length: number): string {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
   }
 }
 

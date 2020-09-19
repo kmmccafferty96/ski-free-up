@@ -32,11 +32,9 @@ exports.sendSurveyAlertEmail = functions.database
     let message = `<h1>New Ski FreeUP Survey Response</h1>`;
     message += `<span>Have you ever skied? - <span style="font-weight:bold;">${val.skiedBefore}</span></span><br>`;
     message += `<span>When was the last time you skied? - <span style="font-weight:bold;">${val.lastTimeSkiing}</span></span><br>`;
-    message += `<span>Please check all ski areas you have skied in UP. - <span style="font-weight:bold;">${
-      val.placesSkied.marquetteMountain ? 'Marquette Mountain, ' : ''
-    }${val.placesSkied.pineMountain ? 'Pine Mountain, ' : ''}${val.placesSkied.skiBrule ? 'Ski Brule, ' : ''}${
-      val.placesSkied.bigPowderHorn ? 'Big Powder Horn' : ''
-    }</span></span><br>`;
+    message += `<span>Please check all ski areas you have skied in UP. - <span style="font-weight:bold;">${val.placesSkied.join(
+      ', '
+    )}</span></span><br>`;
     message += `<span>How many people do you estimate will ski with you if you receive a free or discounted lift ticket? - <span style="font-weight:bold;">${val.numberOfPeople}</span></span><br>`;
     message += `<span>When you ski you... - <span style="font-weight:bold;">${val.leaveDayOrNight}</span></span><br>`;
     message += `<span>If you recieve a free lift ticket can you ski on a weekday? - <span style="font-weight:bold;">${val.canSkiWeekday}</span></span><br>`;
@@ -51,7 +49,8 @@ exports.sendSurveyAlertEmail = functions.database
     message += `<span>City - <span style="font-weight:bold;">${val.contactInformation.city}</span></span><br>`;
     message += `<span>State - <span style="font-weight:bold;">${val.contactInformation.state}</span></span><br>`;
     message += `<span>Zip - <span style="font-weight:bold;">${val.contactInformation.zip}</span></span><br>`;
-    message += `<span>I would like to receive additional specials and promotions. - <span style="font-weight:bold;">${val.additionalSpecials}</span></span><br>`;
+    message += `<span>I would like to receive additional specials and promotions. - <span style="font-weight:bold;">${val.additionalSpecials}</span></span><br><br><br>`;
+    message += `<span>Unique ID - <span style="font-weight:bold;">${val.uniqueId}</span></span>`;
 
     mailOptions.text = message;
     mailOptions.html = message;
