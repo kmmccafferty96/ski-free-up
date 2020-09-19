@@ -22,9 +22,14 @@ mat-radio-group,
 }
 
 .recaptcha-container {
-  display: flex;
-  justify-content: center;
   margin-top: 20px;
+
+  @media screen and (max-width: 425px) {
+    re-captcha {
+      transform: scale(0.75);
+      transform-origin: 0 0;
+    }
+  }
 }
 
 .submit-container {
