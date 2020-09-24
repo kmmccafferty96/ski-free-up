@@ -30,7 +30,6 @@ export class SkiFormComponent implements OnInit {
   constructor(private dialog: MatDialog, private formBuilder: FormBuilder, private firebaseService: FirebaseService) {}
 
   ngOnInit(): void {
-    this.firebaseService.getSurveySubmissions();
     this.initializeForm();
   }
 
@@ -147,7 +146,10 @@ export interface DialogData {
       <p>You may now close this window.</p>
     </div>
     <div *ngIf="!success">
-      <p>An error occurred, please refresh and try again.</p>
+      <p>
+        This email has already been used. Please check your spam if you haven't received an email from us. If you
+        believe this is an error, please refresh and try again.
+      </p>
     </div>`
 })
 export class DialogComponent implements OnInit {

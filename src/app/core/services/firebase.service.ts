@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({ providedIn: 'root' })
 export class FirebaseService {
-  surveySubmissionsRef: AngularFireList<any>;
+  dbRef: firebase.database.Reference;
 
-  constructor(private db: AngularFireDatabase) {}
-
-  getSurveySubmissions(): AngularFireList<any> {
-    this.surveySubmissionsRef = this.db.list('survey-submission-list');
-    return this.surveySubmissionsRef;
+  constructor(private db: AngularFireDatabase) {
+    this.dbRef = this.db.database.ref('survey-submission-list');
   }
 
-  addSurveySubmission(formValue: any): firebase.database.ThenableReference {
-    return this.surveySubmissionsRef.push(formValue);
+  addSurveySubmission(formValue: any): Promise<any> {
+    return this.dbRef.child(this.encodeEmail(formValue.contactInformation.email).toLowerCase()).set(formValue);
+  }
+
+  private encodeEmail(email: string): string {
+    return email.replace(/\./g, ',');
   }
 }
