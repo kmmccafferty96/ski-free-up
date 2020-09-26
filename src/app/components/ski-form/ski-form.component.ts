@@ -52,6 +52,7 @@ export class SkiFormComponent implements OnInit {
   /** Submits the survey response. */
   submitForm(): void {
     this.loading = true;
+    this.form.controls.dateTimeTaken.setValue(new Date().toUTCString());
     this.firebaseService
       .addSurveySubmission(this.form.value)
       .then(
@@ -81,7 +82,9 @@ export class SkiFormComponent implements OnInit {
       }),
       additionalSpecials: false,
       recaptcha: [undefined, [Validators.required]],
-      uniqueId: this.generateRandomId(12)
+      dateTimeTaken: [undefined],
+      uniqueId: this.generateRandomId(12),
+      ticketEmailSent: [false]
     });
 
     this.getRandomPlacesSkied(4);
