@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +18,11 @@ import { environment } from '../../environments/environment';
 
 @NgModule({
   declarations: [],
-  imports: [AngularFireModule.initializeApp(environment.firebase), AngularFireDatabaseModule],
+  imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
+    AngularFireDatabaseModule
+  ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
