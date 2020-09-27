@@ -8,17 +8,27 @@ admin.initializeApp(functions.config().firebase);
 
 var database = admin.database();
 
-const gmailEmail = functions.config().gmail.email;
-const gmailPassword = functions.config().gmail.password;
-const alertRecipientEmail = functions.config()['alert-recipient'].email;
-const alertRecipientBcc = functions.config()['alert-recipient'].bcc;
-const mailTransport = nodemailer.createTransport({
+const skiFreeUpEmail = functions.config().skifreeupgmail.email;
+const skiFreeUpPassword = functions.config().skifreeupgmail.password;
+const skiFreeUpMailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: gmailEmail,
-    pass: gmailPassword
+    user: skiFreeUpEmail,
+    pass: skiFreeUpPassword
   }
 });
+
+const skiFreeUpAlertsEmail = functions.config().skifreeupalertsgmail.email;
+const skiFreeUpAlertsPassword = functions.config().skifreeupalertsgmail.password;
+const skiFreeUpAlertsMailTransport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: skiFreeUpAlertsEmail,
+    pass: skiFreeUpAlertsPassword
+  }
+});
+
+const alertRecipientEmail = functions.config()['alert-recipient'].email;
 
 exports.setServerDateOnRecord = functions.database
   .ref('/survey-submission-list/{surveyId}')
@@ -42,7 +52,6 @@ exports.sendSurveyAlertEmail = functions.database
     const mailOptions = {
       from: '"Ski Free UP Alerts" <skifreeupalerts@gmail.com>',
       to: alertRecipientEmail,
-      bcc: alertRecipientBcc,
       subject: `🚨 Ski Free UP survey response from ${surveyeeFullName} 🚨`
     };
 
@@ -74,7 +83,7 @@ exports.sendSurveyAlertEmail = functions.database
     mailOptions.html = message;
 
     try {
-      await mailTransport.sendMail(mailOptions);
+      await skiFreeUpAlertsMailTransport.sendMail(mailOptions);
       console.log(`Alert email for surveyee ${surveyeeFullName} sent to:`, alertRecipientEmail);
     } catch (error) {
       console.error(`There was an error while sending the alert email for the surveyee ${surveyeeFullName}:`, error);
@@ -91,9 +100,8 @@ exports.sendSurveyConfirmationEmail = functions.database
     const surveyeeEmail = val.contactInformation.email;
 
     const mailOptions = {
-      from: '"Ski Free UP" <skifreeupalerts@gmail.com>',
+      from: '"Ski Free UP" <skifreeup@gmail.com>',
       to: surveyeeEmail,
-      bcc: alertRecipientBcc,
       subject: `Ski Free UP Survey Confirmation`
     };
 
@@ -106,7 +114,7 @@ exports.sendSurveyConfirmationEmail = functions.database
     mailOptions.html = message;
 
     try {
-      await mailTransport.sendMail(mailOptions);
+      await skiFreeUpMailTransport.sendMail(mailOptions);
       console.log(`Confirmation email to surveyee ${surveyeeFullName} sent to:`, surveyeeEmail);
     } catch (error) {
       console.error(
@@ -222,16 +230,15 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
       for (let i = 0; i < surveyEmails.length; i++) {
         if (!surveyEmails[i].alreadySent) {
           const mailOptions = {
-            from: '"Pine Mountain Ski & Golf Resort" <skifreeupalerts@gmail.com>',
+            from: '"Pine Mountain Ski & Golf Resort" <skifreeup@gmail.com>',
             to: surveyEmails[i],
-            bcc: alertRecipientBcc,
             subject: `Free Lift Ticket from Pine Mountain Ski & Golf Resort!`,
             text: surveyEmails[i].textMessage,
             html: surveyEmails[i].htmlMessage
           };
 
           try {
-            await mailTransport.sendMail(mailOptions);
+            await skiFreeUpMailTransport.sendMail(mailOptions);
             console.log(
               `Confirmation email to surveyee ${surveyEmails[i].surveyeeFullName} sent to:`,
               surveyEmails[i].surveyeeEmail
