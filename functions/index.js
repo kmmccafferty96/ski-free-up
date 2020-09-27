@@ -231,7 +231,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
         if (!surveyEmails[i].alreadySent) {
           const mailOptions = {
             from: '"Pine Mountain Ski & Golf Resort" <skifreeup@gmail.com>',
-            to: surveyEmails[i],
+            to: surveyEmails[i].surveyeeEmail,
             subject: `Free Lift Ticket from Pine Mountain Ski & Golf Resort!`,
             text: surveyEmails[i].textMessage,
             html: surveyEmails[i].htmlMessage
