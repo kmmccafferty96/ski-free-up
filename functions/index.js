@@ -56,28 +56,32 @@ exports.sendSurveyAlertEmail = functions.database
     };
 
     // Build email
-    let message = `<h1>New Ski Free UP Survey Response</h1>`;
-    message += `<span>Have you ever skied? - <span style="font-weight:bold;">${val.skiedBefore}</span></span><br>`;
-    message += `<span>When was the last time you skied? - <span style="font-weight:bold;">${val.lastTimeSkiing}</span></span><br>`;
-    message += `<span>Please check all ski areas you have skied in UP. - <span style="font-weight:bold;">${
+    let message = `<h1>New Ski Free UP Survey Response</h1>
+    <span>Have you ever skied? - <span style="font-weight:bold;">${val.skiedBefore}</span></span><br>
+    <span>When was the last time you skied? - <span style="font-weight:bold;">${val.lastTimeSkiing}</span></span><br>
+    <span>Please check all ski areas you have skied in UP. - <span style="font-weight:bold;">${
       val.placesSkied ? val.placesSkied.join(', ') : ''
-    }</span></span><br>`;
-    message += `<span>How many people do you estimate will ski with you if you receive a free or discounted lift ticket? - <span style="font-weight:bold;">${val.numberOfPeople}</span></span><br>`;
-    message += `<span>When you ski you... - <span style="font-weight:bold;">${val.leaveDayOrNight}</span></span><br>`;
-    message += `<span>If you recieve a free lift ticket can you ski on a weekday? - <span style="font-weight:bold;">${val.canSkiWeekday}</span></span><br>`;
-    message += `<h3>Contact Information</h3>`;
-    message += `<span>First Name - <span style="font-weight:bold;">${val.contactInformation.firstName}</span></span><br>`;
-    message += `<span>Last Name - <span style="font-weight:bold;">${val.contactInformation.lastName}</span></span><br>`;
-    message += `<span>Email - <span style="font-weight:bold;">${val.contactInformation.email}</span></span><br>`;
-    message += `<span>Address - <span style="font-weight:bold;">${val.contactInformation.address1}</span></span><br>`;
-    message += `<span>Address 2 - <span style="font-weight:bold;">${
-      val.contactInformation.address2 || 'NONE'
-    }</span></span><br>`;
-    message += `<span>City - <span style="font-weight:bold;">${val.contactInformation.city}</span></span><br>`;
-    message += `<span>State - <span style="font-weight:bold;">${val.contactInformation.state}</span></span><br>`;
-    message += `<span>Zip - <span style="font-weight:bold;">${val.contactInformation.zip}</span></span><br>`;
-    message += `<span>I would like to receive additional specials and promotions. - <span style="font-weight:bold;">${val.additionalSpecials}</span></span><br><br><br>`;
-    message += `<span>Unique ID - <span style="font-weight:bold;">${val.uniqueId}</span></span>`;
+    }</span></span><br>
+    <span>How many people do you estimate will ski with you if you receive a free or discounted lift ticket? - <span style="font-weight:bold;">${
+      val.numberOfPeople
+    }</span></span><br>
+    <span>When you ski you... - <span style="font-weight:bold;">${val.leaveDayOrNight}</span></span><br>
+    <span>If you recieve a free lift ticket can you ski on a weekday? - <span style="font-weight:bold;">${
+      val.canSkiWeekday
+    }</span></span><br>
+    <h3>Contact Information</h3>
+    <span>First Name - <span style="font-weight:bold;">${val.contactInformation.firstName}</span></span><br>
+    <span>Last Name - <span style="font-weight:bold;">${val.contactInformation.lastName}</span></span><br>
+    <span>Email - <span style="font-weight:bold;">${val.contactInformation.email}</span></span><br>
+    <span>Address - <span style="font-weight:bold;">${val.contactInformation.address1}</span></span><br>
+    <span>Address 2 - <span style="font-weight:bold;">${val.contactInformation.address2 || 'NONE'}</span></span><br>
+    <span>City - <span style="font-weight:bold;">${val.contactInformation.city}</span></span><br>
+    <span>State - <span style="font-weight:bold;">${val.contactInformation.state}</span></span><br>
+    <span>Zip - <span style="font-weight:bold;">${val.contactInformation.zip}</span></span><br>
+    <span>I would like to receive additional specials and promotions. - <span style="font-weight:bold;">${
+      val.additionalSpecials
+    }</span></span><br><br><br>
+    <span>Unique ID - <span style="font-weight:bold;">${val.uniqueId}</span></span>`;
 
     mailOptions.text = message;
     mailOptions.html = message;
@@ -106,9 +110,12 @@ exports.sendSurveyConfirmationEmail = functions.database
     };
 
     // Build email
-    let message = `<p>Dear ${surveyeeFullName},</p>`;
-    message += `<p>Thank you for supporting Upper Peninsula ski areas in the Ski Free UP Promotion. You have the unique opportunity to receive a free lift ticket from a UP ski area. <span style="font-weight: bold;">Pine Mountain Ski Resort</span> has been selected to be your ski destination through this promotion. Please expect an email from Pine Mountain Ski & Golf Resort with details within the next 24 to 48 hours.</p>`;
-    message += `<p>Thank you,<br>Ski Free UP</p>`;
+    let message = `<p>Dear ${surveyeeFullName},</p>
+    <p>Thank you for supporting Upper Peninsula ski areas in the Ski Free UP Promotion.
+    You have the unique opportunity to receive a free lift ticket from a UP ski area. <span style="font-weight: bold;">Pine Mountain Ski Resort</span>
+    has been selected to be your ski destination through this promotion. Please expect an email from Pine Mountain Ski & Golf Resort with details within
+    the next 24 to 48 hours.</p>
+    <p>Thank you,<br>Ski Free UP</p>`;
 
     mailOptions.text = message;
     mailOptions.html = message;
@@ -155,7 +162,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
         // Build email
         surveyEmail.textMessage = `Dear ${surveyeeFullName},
 
-      Thank you for supporting Upper Peninsula ski resorts. Enclosed is a free lift ticket ($55 value) which can be used after January 1st, 2021. Pine Mountain Ski and Golf Resort located in Iron Mountain, Michigan was selected for your free lift ticket. Pine Mountain is the only ski in/ski out resort in the Upper Peninsula and just completed a 4 million dollar renovation which makes it one of the top ski destinations in the Upper Peninsula. Visit our website for additional information on lodging, food, and activities. www.pinemountainresort.com.
+      Thank you for supporting Upper Peninsula ski resorts. Enclosed is a free lift ticket ($55 value) which can be used after January 1st, 2021. Pine Mountain Ski & Golf Resort located in Iron Mountain, Michigan was selected for your free lift ticket. Pine Mountain is the only ski in/ski out resort in the Upper Peninsula and just completed a 4 million dollar renovation which makes it one of the top ski destinations in the Upper Peninsula. Visit our website for additional information on lodging, food, and activities. www.pinemountainresort.com.
 
       Please review the rules and regulations below regarding your free lift ticket.
 
@@ -165,12 +172,12 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
       4.  Paper copy or this email on your cell phone is required to claim free lift ticket.
       5.  Free lift ticket is transferable to a family member with same last name.
       6.  One free lift ticket per household per day.
-      7.  Children under age 9 always ski for free at Pine Mountain Ski and Golf Resort with each adult lift ticket.
+      7.  Children under age 9 always ski for free at Pine Mountain Ski & Golf Resort with each adult lift ticket.
       8. One free lift ticket per person per season.
 
-      Be sure to show this email to Guest Services at Pine Mountain Ski and Golf Resort to redeem your free lift ticket.
+      Be sure to show this email to Guest Services at Pine Mountain Ski & Golf Resort to redeem your free lift ticket.
 
-      Pine Mountain Ski and Golf Resort is taking additional precautions during Covid-19 to keep you and your family healthy during this ski season.
+      Pine Mountain Ski & Golf Resort is taking additional precautions during Covid-19 to keep you and your family healthy during this ski season.
 
       Visit www.pinemountainresort.com for more information on lodging, food, and activities prior to your visit.
 
@@ -187,7 +194,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
         </p>
         <p>
           Thank you for supporting Upper Peninsula ski resorts. Enclosed is a free lift ticket ($55 value) which can be used after January 1<sup>st</sup>, 2021.
-          Pine Mountain Ski and Golf Resort located in Iron Mountain, Michigan was selected for your free lift ticket.
+          Pine Mountain Ski & Golf Resort located in Iron Mountain, Michigan was selected for your free lift ticket.
           Pine Mountain is the only ski in/ski out resort in the Upper Peninsula and just completed a 4 million dollar renovation which makes it one of
           the top ski destinations in the Upper Peninsula.
           <a href="https://www.pinemountainresort.com/">Visit our website</a> for additional information on lodging, food, and activities.
@@ -197,21 +204,21 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
         </p>
         <p>
           <ol>
-            <li>In addition to your free lift ticket, you may purchase up to 2 additional lift tickets for 50% off regulate rate during your visit for friends and family.</li>
+            <li>In addition to your free lift ticket, you may purchase up to 2 additional lift tickets for 50% off the regular rate during your visit for friends and family.</li>
             <li>Free lift ticket is valid any Thursday or Friday between January 1<sup>st</sup> and April 30<sup>th</sup>, 2020 or the end of the season, whichever comes first.</li>
             <li>Proper id is required to claim free lift ticket.</li>
             <li>Paper copy or this email on your cell phone is required to claim free lift ticket.</li>
             <li>Free lift ticket is transferable to a family member with same last name.</li>
             <li>One free lift ticket per household per day.</li>
-            <li>Children under age 9 always ski for free at Pine Mountain Ski and Golf Resort with each adult lift ticket.</li>
+            <li>Children under age 9 always ski for free at Pine Mountain Ski & Golf Resort with each adult lift ticket.</li>
             <li>One free lift ticket per person per season.</li>
           </ol>
         </p>
         <p>
-          Be sure to show this email to Guest Services at Pine Mountain Ski and Golf Resort to redeem your free lift ticket.
+          Be sure to show this email to Guest Services at Pine Mountain Ski & Golf Resort to redeem your free lift ticket.
         </p>
         <p>
-          Pine Mountain Ski and Golf Resort is taking additional precautions during COVID-19 to keep you and your family healthy during this ski season.
+          Pine Mountain Ski & Golf Resort is taking additional precautions during COVID-19 to keep you and your family healthy during this ski season.
         </p>
         <p>
           Visit <a href="https://www.pinemountainresort.com/">www.pinemountainresort.com</a> for more information on lodging, food, and activities prior to your visit.
