@@ -110,15 +110,17 @@ exports.sendSurveyConfirmationEmail = functions.database
     };
 
     // Build email
-    let message = `<p>Dear ${surveyeeFullName},</p>
+    mailOptions.text = `Dear ${surveyeeFullName},\r\n\r\nThank you for supporting Upper Peninsula ski areas in the Ski Free UP Promotion.
+    You have the unique opportunity to receive a free lift ticket from a UP ski area. Pine Mountain Ski Resort has been selected
+    to be your ski destination through this promotion. Please expect an email from Pine Mountain Ski & Golf Resort with details within
+    the next 24 to 48 hours.\r\n\r\nThank you,\r\nSki Free UP\r\nwww.skifreeup.com`;
+
+    mailOptions.html = `<p>Dear ${surveyeeFullName},</p>
     <p>Thank you for supporting Upper Peninsula ski areas in the Ski Free UP Promotion.
     You have the unique opportunity to receive a free lift ticket from a UP ski area. <span style="font-weight: bold;">Pine Mountain Ski Resort</span>
     has been selected to be your ski destination through this promotion. Please expect an email from Pine Mountain Ski & Golf Resort with details within
     the next 24 to 48 hours.</p>
     <p>Thank you,<br>Ski Free UP<br><a href="https://www.skifreeup.com">www.skifreeup.com</a></p>`;
-
-    mailOptions.text = message;
-    mailOptions.html = message;
 
     try {
       await skiFreeUpMailTransport.sendMail(mailOptions);
@@ -160,26 +162,26 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
         };
 
         // Build email
-        surveyEmail.textMessage = `Dear ${surveyeeFullName},
+        surveyEmail.textMessage = `Dear ${surveyeeFullName},\r\n\r\n
 
-      Thank you for supporting Upper Peninsula ski resorts. Enclosed is a free lift ticket ($55 value) which can be used after January 1st, 2021. Pine Mountain Ski & Golf Resort located in Iron Mountain, Michigan was selected for your free lift ticket. Pine Mountain is the only ski in/ski out resort in the Upper Peninsula and just completed a 4 million dollar renovation which makes it one of the top ski destinations in the Upper Peninsula. Visit our website for additional information on lodging, food, and activities. www.pinemountainresort.com.
+      Thank you for supporting Upper Peninsula ski resorts. Enclosed is a free lift ticket ($55 value) which can be used after January 1st, 2021. Pine Mountain Ski & Golf Resort located in Iron Mountain, Michigan was selected for your free lift ticket. Pine Mountain is the only ski in/ski out resort in the Upper Peninsula and just completed a 4 million dollar renovation which makes it one of the top ski destinations in the Upper Peninsula. Visit our website for additional information on lodging, food, and activities. www.pinemountainresort.com.\r\n\r\n
 
-      Please review the rules and regulations below regarding your free lift ticket.
+      Please review the rules and regulations below regarding your free lift ticket.\r\n\r\n
 
-      1.  In addition to your free lift ticket, you may purchase up to 2 additional lift tickets for 50% off regulate rate during your visit for friends and family.
-      2.  Free lift ticket is valid any Thursday or Friday between January 1st and April 30th, 2020 or the end of the season, whichever comes first.
-      3.  Proper id is required to claim free lift ticket.
-      4.  Paper copy or this email on your cell phone is required to claim free lift ticket.
-      5.  Free lift ticket is transferable to a family member with same last name.
-      6.  One free lift ticket per household per day.
-      7.  Children under age 9 always ski for free at Pine Mountain Ski & Golf Resort with each adult lift ticket.
-      8. One free lift ticket per person per season.
+      1.  In addition to your free lift ticket, you may purchase up to 2 additional lift tickets for 50% off regulate rate during your visit for friends and family.\r\n
+      2.  Free lift ticket is valid any Thursday or Friday between January 1st and April 30th, 2020 or the end of the season, whichever comes first.\r\n
+      3.  Proper id is required to claim free lift ticket.\r\n
+      4.  Paper copy or this email on your cell phone is required to claim free lift ticket.\r\n
+      5.  Free lift ticket is transferable to a family member with same last name.\r\n
+      6.  One free lift ticket per household per day.\r\n
+      7.  Children under age 9 always ski for free at Pine Mountain Ski & Golf Resort with each adult lift ticket.\r\n
+      8. One free lift ticket per person per season.\r\n\r\n
 
-      Be sure to show this email to Guest Services at Pine Mountain Ski & Golf Resort to redeem your free lift ticket.
+      Be sure to show this email to Guest Services at Pine Mountain Ski & Golf Resort to redeem your free lift ticket.\r\n\r\n
 
-      Pine Mountain Ski & Golf Resort is taking additional precautions during Covid-19 to keep you and your family healthy during this ski season.
+      Pine Mountain Ski & Golf Resort is taking additional precautions during Covid-19 to keep you and your family healthy during this ski season.\r\n\r\n
 
-      Visit www.pinemountainresort.com for more information on lodging, food, and activities prior to your visit.
+      Visit www.pinemountainresort.com for more information on lodging, food, and activities prior to your visit.\r\n\r\n
 
       Redemption Code: ${val.uniqueId}
       `;
