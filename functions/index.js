@@ -120,7 +120,7 @@ exports.sendSurveyConfirmationEmail = functions.database
     <p>Thank you for supporting Upper Peninsula ski areas in the Ski Free UP Promotion.
     You have the unique opportunity to receive a free lift ticket from a UP ski area. <span style="font-weight: bold;">Pine Mountain Ski Resort</span>
     has been selected to be your ski destination through this promotion. Please expect an email from Pine Mountain Ski & Golf Resort with details within
-    the next 24 to 48 hours.</p>
+    the next 24 to 48 hours. If 48 hours have passed and you have still not received a ticket, please reply to this email and we will get it sorted out.</p>
     <p>Thank you,<br>Ski Free UP<br><a href="https://www.skifreeup.com">www.skifreeup.com</a></p>`;
 
     try {
