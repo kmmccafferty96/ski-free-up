@@ -162,6 +162,10 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
           alreadySent: val.ticketEmailSent
         };
 
+        console.log(
+          `Adding ticket email for ${surveyeeFullName} (${surveyeeEmail}) (already sent = ${val.ticketEmailSent})`
+        );
+
         // Build email
         surveyEmail.textMessage = `Dear ${surveyeeFullName},\r\n\r\n
 
