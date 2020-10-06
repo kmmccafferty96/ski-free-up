@@ -35,9 +35,9 @@ exports.setServerDateOnRecord = functions.database
   .onCreate(async (snapshot, context) => {
     try {
       database.ref(`survey-submission-list/${snapshot.key}/dateTimeTaken`).set(new Date().toUTCString());
-      console.log(`dateTimeTaken set on ${snapshot.key}`);
+      functions.logger.log(`dateTimeTaken set on ${snapshot.key}`);
     } catch (error) {
-      console.error(`There was an error setting dateTimeTaken for ${snapshot.key}:`, error);
+      functions.logger.error(`There was an error setting dateTimeTaken for ${snapshot.key}:`, error);
     }
 
     return null;
@@ -88,9 +88,12 @@ exports.sendSurveyAlertEmail = functions.database
 
     try {
       await skiFreeUpAlertsMailTransport.sendMail(mailOptions);
-      console.log(`Alert email for surveyee ${surveyeeFullName} sent to:`, alertRecipientEmail);
+      functions.logger.log(`Alert email for surveyee ${surveyeeFullName} sent to:`, alertRecipientEmail);
     } catch (error) {
-      console.error(`There was an error while sending the alert email for the surveyee ${surveyeeFullName}:`, error);
+      functions.logger.error(
+        `There was an error while sending the alert email for the surveyee ${surveyeeFullName}:`,
+        error
+      );
     }
 
     return null;
@@ -125,9 +128,9 @@ exports.sendSurveyConfirmationEmail = functions.database
 
     try {
       await skiFreeUpMailTransport.sendMail(mailOptions);
-      console.log(`Confirmation email to surveyee ${surveyeeFullName} sent to:`, surveyeeEmail);
+      functions.logger.log(`Confirmation email to surveyee ${surveyeeFullName} sent to:`, surveyeeEmail);
     } catch (error) {
-      console.error(
+      functions.logger.error(
         `There was an error while sending the confirmation email to the surveyee ${surveyeeFullName}:`,
         error
       );
@@ -162,7 +165,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
           alreadySent: val.ticketEmailSent
         };
 
-        console.log(
+        functions.logger.log(
           `Adding ticket email for ${surveyeeFullName} (${surveyeeEmail}) (already sent = ${val.ticketEmailSent})`
         );
 
@@ -180,7 +183,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
       5.  Free lift ticket is transferable to a family member with same last name.\r\n
       6.  One free lift ticket per household per day.\r\n
       7.  Children under age 9 always ski for free at Pine Mountain Ski & Golf Resort with each adult lift ticket.\r\n
-      8. One free lift ticket per person per season.\r\n\r\n
+      8.  One free lift ticket per person per season.\r\n\r\n
 
       Be sure to show this email to Guest Services at Pine Mountain Ski & Golf Resort to redeem your free lift ticket.\r\n\r\n
 
@@ -253,14 +256,14 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
 
           try {
             await skiFreeUpMailTransport.sendMail(mailOptions);
-            console.log(
-              `Confirmation email to surveyee ${surveyEmails[i].surveyeeFullName} sent to:`,
+            functions.logger.log(
+              `TIcket email to surveyee ${surveyEmails[i].surveyeeFullName} sent to:`,
               surveyEmails[i].surveyeeEmail
             );
             database.ref(`survey-submission-list/${surveyEmails[i].key}/ticketEmailSent`).set(true);
           } catch (error) {
-            console.error(
-              `There was an error while sending the confirmation email to the surveyee ${surveyEmails[i].surveyeeFullName}:`,
+            functions.logger.error(
+              `There was an error while sending the ticket email to the surveyee ${surveyEmails[i].surveyeeFullName}:`,
               error
             );
           }
@@ -328,7 +331,7 @@ function appendSheetRow(jwt, apiKey, spreadsheetId, range, row) {
       if (err) {
         throw err;
       } else {
-        console.log('Updated sheet: ' + result.data.updates.updatedRange);
+        functions.logger.log('Updated sheet: ' + result.data.updates.updatedRange);
       }
     }
   );
