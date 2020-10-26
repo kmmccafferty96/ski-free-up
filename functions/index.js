@@ -177,7 +177,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
       Please review the rules and regulations below regarding your free lift ticket.\r\n\r\n
 
       1.  In addition to your free lift ticket, you may purchase up to 2 additional lift tickets for 50% off regulate rate during your visit for friends and family.\r\n
-      2.  Free lift ticket is valid any Thursday or Friday between January 1st and April 30th, 2020 or the end of the season, whichever comes first.\r\n
+      2.  Free lift ticket is valid any Thursday or Friday between January 1st and April 30th, 2021 or the end of the season, whichever comes first.\r\n
       3.  Proper id is required to claim free lift ticket.\r\n
       4.  Paper copy or this email on your cell phone is required to claim free lift ticket.\r\n
       5.  Free lift ticket is transferable to a family member with same last name.\r\n
@@ -215,7 +215,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('0 0-23 * * *').onR
         <p>
           <ol>
             <li>In addition to your free lift ticket, you may purchase up to 2 additional lift tickets for 50% off the regular rate during your visit for friends and family.</li>
-            <li>Free lift ticket is valid any Thursday or Friday between January 1<sup>st</sup> and April 30<sup>th</sup>, 2020 or the end of the season, whichever comes first.</li>
+            <li>Free lift ticket is valid any Thursday or Friday between January 1<sup>st</sup> and April 30<sup>th</sup>, 2021 or the end of the season, whichever comes first.</li>
             <li>Proper id is required to claim free lift ticket.</li>
             <li>Paper copy or this email on your cell phone is required to claim free lift ticket.</li>
             <li>Free lift ticket is transferable to a family member with same last name.</li>
