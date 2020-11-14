@@ -151,7 +151,7 @@ export interface DialogData {
     <div *ngIf="!success">
       <p>
         This email has already been used. Please check your spam if you haven't received an email from us. If you
-        believe this is an error, please refresh and try again.
+        believe this is an error, please refresh and try again or email us skifreeup@gmail.com.
       </p>
     </div>`
 })
