@@ -121,7 +121,7 @@ export class SkiFormComponent implements OnInit {
   }
 
   private generateRandomId(length: number): string {
-    let result = '';
+    let result = 'MT-';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
