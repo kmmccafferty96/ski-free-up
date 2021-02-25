@@ -121,7 +121,7 @@ export class SkiFormComponent implements OnInit {
   }
 
   private generateRandomId(length: number): string {
-    let result = '';
+    let result = 'MT-';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -151,7 +151,7 @@ export interface DialogData {
     <div *ngIf="!success">
       <p>
         This email has already been used. Please check your spam if you haven't received an email from us. If you
-        believe this is an error, please refresh and try again.
+        believe this is an error, please refresh and try again or email us at skifreeup@gmail.com.
       </p>
     </div>`
 })
