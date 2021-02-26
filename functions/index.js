@@ -139,7 +139,7 @@ exports.sendSurveyConfirmationEmail = functions.database
     return null;
   });
 
-exports.scheduledSendLiftTickets = functions.pubsub.schedule('30 15 * * *').onRun(async (context) => {
+exports.scheduledSendLiftTickets = functions.pubsub.schedule('10 10 * * *').onRun(async (context) => {
   var ref = database.ref('survey-submission-list');
 
   var surveyEmails = [];
@@ -191,7 +191,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('30 15 * * *').onRu
 
           surveyEmail.htmlMessage = `<div style="max-width: 900px; width: 100%; background-color: white;">
         <a href="https://www.pinemountainresort.com/">
-          <img src="https://www.pinemountainresort.com/uploaded/about/letterhead_top.jpg" alt="Pine Mountain Resort Letter Header" style="width: 100%;">
+          <img src="https://www.skifreeup.com/assets/pm_letterhead_top.jpg" alt="Pine Mountain Resort Letter Header" style="width: 100%;">
         </a>
         <div style="padding: 25px 20px;">
           <p>
@@ -232,7 +232,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('30 15 * * *').onRu
             Redemption Code: <span style="font-weight: bold;">${val.uniqueId}</span>
           </p>
         </div>
-        <img src="https://www.pinemountainresort.com/uploaded/about/letterhead_bottom.jpg" alt="Pine Mountain Resort Letter Footer" style="width: 100%;">
+        <img src="https://www.skifreeup.com/assets/pm_letterhead_bottom.jpg" alt="Pine Mountain Resort Letter Footer" style="width: 100%;">
       </div>`;
 
           surveyEmails.push(surveyEmail);
@@ -242,7 +242,7 @@ exports.scheduledSendLiftTickets = functions.pubsub.schedule('30 15 * * *').onRu
       // Loop surveyEmails array and send emails
       for (let i = 0; i < surveyEmails.length; i++) {
         const mailOptions = {
-          from: '"Pine Mountain Ski & Golf Resort" <skifreeup@gmail.com>',
+          from: '"Ski Free UP" <skifreeup@gmail.com>',
           to: surveyEmails[i].surveyeeEmail,
           subject: `Free Lift Ticket from Pine Mountain Ski & Golf Resort!`,
           text: surveyEmails[i].textMessage,
