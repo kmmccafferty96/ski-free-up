@@ -18,14 +18,23 @@
       together. Leading physicians encourage you to get outdoors during COVID-19. Skiing is one winter activity that
       provides a safe and healthy environment while naturally encouraging social distancing.
     </p>
-    <p style="font-weight: bold">
-      Please fill out our short survey below and we will provide you with free or discounted lift tickets to select
-      Upper Peninsula ski resorts this winter.
-    </p>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <app-ski-form></app-ski-form>
+    <ng-container *ngIf="isPromotionRunning">
+      <p style="font-weight: bold">
+        Please fill out our short survey below and we will provide you with free or discounted lift tickets to select
+        Upper Peninsula ski resorts this winter.
+      </p>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <app-ski-form></app-ski-form>
+        </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="!isPromotionRunning">
+      <div class="row justify-content-center">
+        <div class="col-md-8" style="text-align: center">
+          This promotion is done for the year. Check back again next ski season!
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
